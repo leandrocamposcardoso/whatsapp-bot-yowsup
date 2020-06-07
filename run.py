@@ -25,7 +25,7 @@ def workerwhatsapp():
 	stack.loop( timeout = 0.5, discrete = 0.5 )
 
 if __name__==  "__main__":
-	threads = list()
+	threads = []
 	wasa = threading.Thread(target=workerwhatsapp)
 	threads.append(wasa)
 	wasa.start()
