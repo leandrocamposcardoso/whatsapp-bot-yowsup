@@ -32,15 +32,15 @@ class Wikipedia:
     def article(self, article):
         url = self.url_article % (self.lang, urllib.quote_plus(article))
         content = self.__fetch(url).read()
-        
+
         if content.upper().startswith('#REDIRECT'):
             match = re.match('(?i)#REDIRECT \[\[([^\[\]]+)\]\]', content)
-            
-            if not match == None:
+
+            if match is not None:
                 return self.article(match.group(1))
-            
+
             raise WikipediaError('Can\'t found redirect article.')
-        
+
         return content
     
     def image(self, image, thumb=None):

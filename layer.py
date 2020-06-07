@@ -53,8 +53,6 @@ class EchoLayer(YowInterfaceLayer):
 			self.toLower(messageProtocolEntity.ack(True))
 			time.sleep(random.randrange(Cfg.RAND_MIN,Cfg.RAND_MAX))
 			self.toLower(UnavailablePresenceProtocolEntity())#Set offline
-		else:
-			pass
 
 	@ProtocolEntityCallback("receipt")
 	def onReceipt(self, entity):
@@ -89,11 +87,11 @@ class EchoLayer(YowInterfaceLayer):
 				print answer
 
 	def onMediaMessage(self, messageProtocolEntity):
-		if messageProtocolEntity.getFrom(False):
-			if messageProtocolEntity.getMediaType() == "image":
-				url = messageProtocolEntity.url
-				self.extension = self.getExtension(messageProtocolEntity.getMimeType())
-				return self.downloadMedia(url)
+		if (messageProtocolEntity.getFrom(False)
+		    and messageProtocolEntity.getMediaType() == "image"):
+			url = messageProtocolEntity.url
+			self.extension = self.getExtension(messageProtocolEntity.getMimeType())
+			return self.downloadMedia(url)
 
 	def downloadMedia(self, url):
 		print("Download %s" % url)
